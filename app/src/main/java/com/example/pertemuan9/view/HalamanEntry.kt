@@ -77,7 +77,7 @@ fun EntrySiswaBody(
 ){
     Column (
         verticalArrangement = Arrangement.spacedBy(dimensionResource(id = R.dimen.padding_large)),
-        modifier = Modifier.padding(dimensionResource(id = R.dimen.padding_medium))
+        modifier = modifier.padding(dimensionResource(id = R.dimen.padding_medium))
     ){
         FormInputSiswa(
             detailSiswa = uiStateSiswa.detailSiswa,
@@ -97,10 +97,11 @@ fun EntrySiswaBody(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun EntryFormSiswa(
+fun FormInputSiswa(
     detailSiswa: DetailSiswa,
     onValueChange: (DetailSiswa) -> Unit = {},
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    enabled: Boolean = true
 ){
     Column (
         modifier = Modifier,
@@ -108,7 +109,7 @@ fun EntryFormSiswa(
     ){
         OutlinedTextField(
             value = detailSiswa.nama,
-            onValueChange = { onValueChange(detailSiswa.copy(alamat = it)) },
+            onValueChange = { onValueChange(detailSiswa.copy(nama = it)) },
             label = { Text(stringResource(R.string.nama)) },
             modifier = Modifier.fillMaxWidth(),
             enabled = enabled,
