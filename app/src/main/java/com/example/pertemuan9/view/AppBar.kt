@@ -1,6 +1,6 @@
 package com.example.pertemuan9.view
 
-import android.graphics.drawable.Icon
+import androidx.compose.material3.Icon
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.CenterAlignedTopAppBar
@@ -17,7 +17,7 @@ import com.example.pertemuan9.R
 @Composable
 fun SiswaTopAppBar(
     title: String,
-    canNavigateBack: Modifier,
+    canNavigateBack: Boolean,
     modifier: Modifier = Modifier,
     scrollBehavior: TopAppBarScrollBehavior? = null,
     navigateUp: () -> Unit = {}
