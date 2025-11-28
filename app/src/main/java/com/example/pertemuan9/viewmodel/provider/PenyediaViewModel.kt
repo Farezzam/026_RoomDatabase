@@ -18,3 +18,5 @@ object PenyediaViewModel {
     }
 }
 
+fun CreationExtras.aplikasiSiswa(): AplikasiSiswa =
+    (this[APPLICATION_KEY] as AplikasiSiswa)
