@@ -4,5 +4,5 @@ import com.example.pertemuan9.R
 
 object DestinasiEntry: DestinasiNavigasi {
     override val route = "home"
-    override fun titleRes = R.string.entry_siswa
+    override val titleRes = R.string.entry_siswa
 }

@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import com.example.pertemuan9.repositori.RepositoriSiswa
 import com.example.pertemuan9.room.Siswa
 
+
 class EntryViewModel(private val repositoriSiswa: RepositoriSiswa) : ViewModel() {
 
     var uiStateSiswa by mutableStateOf(UIStateSiswa())
