@@ -1,0 +1,30 @@
+package com.example.pertemuan9.viewmodel
+
+import androidx.compose.runtime.mutableStateOf
+import androidx.lifecycle.ViewModel
+import com.example.pertemuan9.repositori.RepositoriSiswa
+import com.example.pertemuan9.room.Siswa
+
+class EntryViewModel(private val repositoriSiswa: RepositoriSiswa) : ViewModel() {
+
+    var uiStateSiswa by mutableStateOf(UIStateSiswa())
+        private set
+
+    private fun validasiInput(uiState: DetailSiswa): Boolean = with(uiState) {
+        return nama.isNotBlank() && alamat.isNotBlank() && telpon.isNotBlank()
+    }
+
+    fun updateUiState(detailSiswa: DetailSiswa) {
+        uiStateSiswa = UIStateSiswa(
+            detailSiswa = detailSiswa,
+            isEntryValid = validasiInput(detailSiswa)
+        )
+    }
+
+    suspend fun saveSiswa() {
+        if (validasiInput(uiStateSiswa.detailSiswa)) {
+            repositoriSiswa.insertSiswa(uiStateSiswa.detailSiswa.toSiswa())
+        }
+    }
+}
+
