@@ -3,6 +3,7 @@ package com.example.pertemuan9.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.pertemuan9.repositori.RepositoriSiswa
+import com.example.pertemuan9.room.Siswa
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.filterNotNull
@@ -17,11 +18,15 @@ class HomeViewModel(private val repositoriSiswa: RepositoriSiswa): ViewModel() {
 
     val homeUiState: StateFlow<HomeUiState> = repositoriSiswa.getAllSiswaStream()
         .filterNotNull()
-        .map { homeUiState(listSiswa = it.toList()) }
+        .map { HomeUiState(listSiswa = it.toList()) }
         .stateIn(
             scope = viewModelScope,
             started = SharingStarted.WhileSubscribed(TIMEOUT_MILLIS),
             initialValue = HomeUiState()
         )
 }
+
+data class HomeUiState(
+    val listSiswa: List<Siswa> = listOf()
+)
 
