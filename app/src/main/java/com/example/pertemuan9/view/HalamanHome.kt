@@ -1,5 +1,6 @@
 package com.example.pertemuan9.view
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -31,6 +32,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.room.Update
 import com.example.pertemuan9.R
 import com.example.pertemuan9.room.Siswa
 import com.example.pertemuan9.view.route.DestinasiHome
@@ -41,6 +43,7 @@ import com.example.pertemuan9.viewmodel.provider.PenyediaViewModel
 @Composable
 fun HomeScreen(
     navigateToItemEntry: () -> Unit,
+    navigateToItemUpdate: (Int) -> Unit,
     modifier: Modifier = Modifier,
     viewModel: HomeViewModel = viewModel (factory = PenyediaViewModel .Factory)
 ) {
@@ -71,6 +74,7 @@ fun HomeScreen(
         val uiStateSiswa by viewModel.homeUiState.collectAsState()
         HomeBody(
             itemSiswa = uiStateSiswa.listSiswa,
+            onSiswaClick = navigateToItemUpdate,
             modifier = Modifier
                 .padding(innerPadding)
                 .fillMaxWidth()
@@ -81,6 +85,7 @@ fun HomeScreen(
 @Composable
 fun HomeBody(
     itemSiswa: List<Siswa>,
+    onSiswaClick: (Int) -> Unit,
     modifier: Modifier = Modifier
 ) {
     Column (
@@ -96,6 +101,7 @@ fun HomeBody(
         } else {
             ListSiswa(
                 itemSiswa = itemSiswa,
+                onSiswaClick = {onSiswaClick(it.id)},
                 modifier = Modifier.padding(horizontal = dimensionResource(id = R.dimen.padding_small))
             )
         }
@@ -105,6 +111,7 @@ fun HomeBody(
 @Composable
 fun ListSiswa(
     itemSiswa: List<Siswa>,
+    onSiswaClick: (Siswa) -> Unit,
     modifier: Modifier = Modifier
 ) {
     LazyColumn (modifier = modifier) {
@@ -112,7 +119,9 @@ fun ListSiswa(
             person -> DataSiswa(
                 siswa = person,
                 modifier = Modifier
-                    .padding(dimensionResource(id = R.dimen.padding_small)))
+                    .padding(dimensionResource(id = R.dimen.padding_small))
+                    .clickable{onSiswaClick(person)}
+            )
         }
     }
 }
